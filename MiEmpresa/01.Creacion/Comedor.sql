@@ -6,32 +6,32 @@ USE Comedor
 
 -- Tablas
 
+CREATE TABLE Tutor (
+    id_tutor INT IDENTITY(1,1) PRIMARY KEY,
+    nombre NVARCHAR(100) NOT NULL,
+    apellido_paterno NVARCHAR(100) NOT NULL,
+    apellido_materno NVARCHAR(100) NOT NULL,
+    telefono NVARCHAR(15) NOT NULL,
+    telefono_celular NVARCHAR(15),
+    lugar_trabajo NVARCHAR(255)
+)
+
 CREATE TABLE Nino (
-    id_nino INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    apellido_paterno VARCHAR(100) NOT NULL,
-    apellido_materno VARCHAR(100) NOT NULL,
+    id_nino INT IDENTITY(1,1) PRIMARY KEY,
+    nombre NVARCHAR(100) NOT NULL,
+    apellido_paterno NVARCHAR(100) NOT NULL,
+    apellido_materno NVARCHAR(100) NOT NULL,
     edad INT CHECK (edad > 0),
-    grado VARCHAR(50) NOT NULL,
-    nivel VARCHAR(50) NOT NULL,
-    alergias_alimenticias TEXT,
+    grado NVARCHAR(50) NOT NULL,
+    nivel NVARCHAR(50) NOT NULL,
+    alergias_alimenticias NVARCHAR(MAX),
     id_tutor INT,
     FOREIGN KEY (id_tutor) REFERENCES Tutor(id_tutor) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
-CREATE TABLE Tutor (
-    id_tutor INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    apellido_paterno VARCHAR(100) NOT NULL,
-    apellido_materno VARCHAR(100) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    telefono_celular VARCHAR(15),
-    lugar_trabajo VARCHAR(255)
-)
-
 CREATE TABLE Menu (
-    id_menu INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
+    id_menu INT IDENTITY(1,1) PRIMARY KEY,
+    nombre NVARCHAR(100) NOT NULL
 )
 
 -- La relacion entre Niño-Menu o lo que consumió
@@ -43,12 +43,11 @@ CREATE TABLE Consumo (
     FOREIGN KEY (id_menu) REFERENCES Menu(id_menu) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
-
 CREATE TABLE Alimento (
-    id_alimento INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    datos_nutricionales TEXT NOT NULL,
-    tipo ENUM('COMIDA', 'POSTRE', 'BEBIDA') NOT NULL
+    id_alimento INT IDENTITY(1,1) PRIMARY KEY,
+    nombre NVARCHAR(100) NOT NULL,
+    datos_nutricionales NVARCHAR(MAX) NOT NULL,
+    tipo NVARCHAR(10) NOT NULL CHECK (tipo IN ('COMIDA', 'POSTRE', 'BEBIDA'))
 )
 
 -- La relacion entre menu-alimento
@@ -61,7 +60,7 @@ CREATE TABLE Menu_Alimento (
 )
 
 CREATE TABLE Receta (
-    id_receta INT AUTO_INCREMENT PRIMARY KEY,
+    id_receta INT IDENTITY(1,1) PRIMARY KEY,
     porciones INT CHECK (porciones > 0)
 )
 
@@ -75,9 +74,9 @@ CREATE TABLE Menu_Receta (
 )
 
 CREATE TABLE Ingrediente (
-    id_ingrediente INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    unidad VARCHAR(50) NOT NULL
+    id_ingrediente INT IDENTITY(1,1) PRIMARY KEY,
+    nombre NVARCHAR(100) NOT NULL,
+    unidad NVARCHAR(50) NOT NULL
 )
 
 CREATE TABLE Receta_Ingrediente (
