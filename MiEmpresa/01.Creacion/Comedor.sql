@@ -16,6 +16,8 @@ CREATE TABLE Tutor (
     lugar_trabajo NVARCHAR(255)
 )
 
+SELECT * FROM Tutor
+
 CREATE TABLE Nino (
     id_nino INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
@@ -29,10 +31,14 @@ CREATE TABLE Nino (
     FOREIGN KEY (id_tutor) REFERENCES Tutor(id_tutor) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
+SELECT * FROM Nino
+
 CREATE TABLE Menu (
     id_menu INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL
 )
+
+SELECT * FROM Menu
 
 -- La relacion entre Niño-Menu o lo que consumió
 CREATE TABLE Consumo (
@@ -43,12 +49,16 @@ CREATE TABLE Consumo (
     FOREIGN KEY (id_menu) REFERENCES Menu(id_menu) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
+SELECT * FROM Consumo
+
 CREATE TABLE Alimento (
     id_alimento INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
     datos_nutricionales NVARCHAR(MAX) NOT NULL,
     tipo NVARCHAR(10) NOT NULL CHECK (tipo IN ('COMIDA', 'POSTRE', 'BEBIDA'))
 )
+
+SELECT * FROM Alimento
 
 -- La relacion entre menu-alimento
 CREATE TABLE Menu_Alimento (
@@ -59,10 +69,14 @@ CREATE TABLE Menu_Alimento (
     FOREIGN KEY (id_alimento) REFERENCES Alimento(id_alimento) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
+SELECT * FROM Menu_Alimento
+
 CREATE TABLE Receta (
     id_receta INT IDENTITY(1,1) PRIMARY KEY,
     porciones INT CHECK (porciones > 0)
 )
+
+SELECT * FROM Receta
 
 --Relacion entre menu-receta
 CREATE TABLE Menu_Receta (
@@ -73,11 +87,15 @@ CREATE TABLE Menu_Receta (
     FOREIGN KEY (id_receta) REFERENCES Receta(id_receta) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
+SELECT * FROM Menu_Receta
+
 CREATE TABLE Ingrediente (
     id_ingrediente INT IDENTITY(1,1) PRIMARY KEY,
     nombre NVARCHAR(100) NOT NULL,
     unidad NVARCHAR(50) NOT NULL
 )
+
+SELECT * FROM Ingrediente
 
 CREATE TABLE Receta_Ingrediente (
     id_receta INT,
@@ -87,6 +105,9 @@ CREATE TABLE Receta_Ingrediente (
     FOREIGN KEY (id_receta) REFERENCES Receta(id_receta) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_ingrediente) REFERENCES Ingrediente(id_ingrediente) ON DELETE CASCADE ON UPDATE CASCADE
 )
+
+SELECT * FROM Receta_Ingrediente
+
 
 -- Datos catálogos
 INSERT INTO Tutor (nombre, apellido_paterno, apellido_materno, telefono, telefono_celular, lugar_trabajo)
@@ -102,6 +123,8 @@ VALUES
     ('Luis', 'Cruz', 'Moreno', '6629988771', '6625566778', 'Hospital F'),
     ('Gabriela', 'Reyes', 'Núñez', '6623344559', '6621122335', 'Oficina G');
 
+SELECT * FROM Tutor
+
 INSERT INTO Nino (nombre, apellido_paterno, apellido_materno, edad, grado, nivel, alergias_alimenticias, id_tutor) 
 VALUES
     ('Pedro', 'Perez', 'Gomez', 7, 'Primero', 'Primaria', 'Ninguna', 1),
@@ -110,35 +133,14 @@ VALUES
     ('Elena', 'Martinez', 'Diaz', 10, 'Cuarto', 'Primaria', 'Nueces', 4),
     ('Javier', 'Gonzalez', 'Ruiz', 11, 'Quinto', 'Primaria', 'Ninguna', 5);
 
+
+SELECT * FROM Nino
+
+
+--Borre el primer tutor, para validar la dependecia de la tabla niño
+DELETE FROM Tutor 
+    WHERE id_tutor = 1
+
+
+
 -- Datos operaciones
-INSERT INTO Menu (id_menu)
-VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
-
-INSERT INTO Alimento (nombre, datos_nutricionales, tipo)
-VALUES 
-    ('Ensalada', 'Vitaminas y minerales', 'COMIDA'),
-    ('Pasta', 'Carbohidratos y proteínas', 'COMIDA'),
-    ('Jugo de Naranja', 'Vitamina C y azúcares naturales', 'BEBIDA'),
-    ('Helado', 'Calcio y azúcares', 'POSTRE'),
-    ('Sopa de Verduras', 'Fibra y vitaminas', 'COMIDA');
-
-INSERT INTO Menu_Alimento (id_menu, id_alimento)
-VALUES 
-    (1,1), (1,2), (2,3), (2,4), (3,5), (4,1), (5,2), (6,3), (7,4), (8,5),
-    (9,1), (10,2), (1,3), (2,4), (3,5), (4,1), (5,2), (6,3), (7,4), (8,5);
-
-INSERT INTO Receta (porciones)
-VALUES (2), (4), (3), (5), (6), (2), (3), (4), (5), (6);
-
-INSERT INTO Ingrediente (nombre, unidad)
-VALUES 
-    ('Tomate', 'Kg'),
-    ('Zanahoria', 'Kg'),
-    ('Pasta', 'g'),
-    ('Naranja', 'Pieza'),
-    ('Leche', 'L');
-
-INSERT INTO Receta_Ingrediente (id_receta, id_ingrediente, cantidad)
-VALUES 
-    (1,1,0.5), (1,2,0.3), (2,3,200), (3,4,2), (4,5,1),
-    (5,1,0.4), (6,2,0.2), (7,3,150), (8,4,3), (9,5,0.8);
