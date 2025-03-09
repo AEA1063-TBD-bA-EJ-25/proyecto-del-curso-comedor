@@ -133,35 +133,7 @@ VALUES
     ('Elena', 'Martinez', 'Diaz', 10, 'Cuarto', 'Primaria', 'Nueces', 4),
     ('Javier', 'Gonzalez', 'Ruiz', 11, 'Quinto', 'Primaria', 'Ninguna', 5);
 
+DELETE FROM Tutor
+    WHERE id_tutor = 4;
+
 -- Datos operaciones
-INSERT INTO Menu (id_menu)
-VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
-
-INSERT INTO Alimento (nombre, datos_nutricionales, tipo)
-VALUES 
-    ('Ensalada', 'Vitaminas y minerales', 'COMIDA'),
-    ('Pasta', 'Carbohidratos y proteínas', 'COMIDA'),
-    ('Jugo de Naranja', 'Vitamina C y azúcares naturales', 'BEBIDA'),
-    ('Helado', 'Calcio y azúcares', 'POSTRE'),
-    ('Sopa de Verduras', 'Fibra y vitaminas', 'COMIDA');
-
-INSERT INTO Menu_Alimento (id_menu, id_alimento)
-VALUES 
-    (1,1), (1,2), (2,3), (2,4), (3,5), (4,1), (5,2), (6,3), (7,4), (8,5),
-    (9,1), (10,2), (1,3), (2,4), (3,5), (4,1), (5,2), (6,3), (7,4), (8,5);
-
-INSERT INTO Receta (porciones)
-VALUES (2), (4), (3), (5), (6), (2), (3), (4), (5), (6);
-
-INSERT INTO Ingrediente (nombre, unidad)
-VALUES 
-    ('Tomate', 'Kg'),
-    ('Zanahoria', 'Kg'),
-    ('Pasta', 'g'),
-    ('Naranja', 'Pieza'),
-    ('Leche', 'L');
-
-INSERT INTO Receta_Ingrediente (id_receta, id_ingrediente, cantidad)
-VALUES 
-    (1,1,0.5), (1,2,0.3), (2,3,200), (3,4,2), (4,5,1),
-    (5,1,0.4), (6,2,0.2), (7,3,150), (8,4,3), (9,5,0.8);
